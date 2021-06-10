@@ -27,8 +27,8 @@ app = Flask(__name__)
 def daily_reminder(receiver, message):
     message = client.messages.create(
         from_='whatsapp:+14155238886',
-        body=message,
-        to=os.environ['adm']
+        body=show_datas(),
+        to=receiver
     )
     return message
 # daily_reminder()

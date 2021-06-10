@@ -1,7 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from calendarzap import *
 
-receiver_list = os.environ['adm']
+receiver_list = [os.environ['adm'], os.environ['User1'],
+                 os.environ['User2'], os.environ['User3']]
 
 scheduler = BlockingScheduler()
 
@@ -14,9 +15,10 @@ scheduler = BlockingScheduler()
 
 #scheduler.add_job(the_funct, 'cron', minutes=2)
 
-@scheduler.scheduled_job('interval', minutes=3)
+@scheduler.scheduled_job('interval', minutes=120)
 def timed_job():
-    daily_reminder(os.environ['adm'], 'teste')
+    for numb in receiver_list:
+        daily_reminder(numb, 'teste')
 
 
 scheduler.start()
