@@ -8,7 +8,7 @@ scheduler = BlockingScheduler()
 
 def the_funct():
     for numb in receiver_list:
-        print(f"sending message to {numb}")
+        #print(f"sending message to {numb}")
         daily_reminder(numb, 'messages')
 
 
