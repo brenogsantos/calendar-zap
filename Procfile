@@ -1,0 +1,1 @@
+web: gunicorn calendarzap:app --log-file=-
