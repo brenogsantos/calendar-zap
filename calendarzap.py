@@ -28,7 +28,7 @@ def daily_reminder(receiver, message):
     message = client.messages.create(
         from_='whatsapp:+14155238886',
         body=message,
-        to=f'whatsapp:{receiver}'
+        to=os.environ['adm']
     )
     return message
 # daily_reminder()
