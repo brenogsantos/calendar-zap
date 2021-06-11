@@ -17,6 +17,13 @@ scheduler = BlockingScheduler()
 
 @scheduler.scheduled_job('interval', minutes=20)
 def timed_job():
+    pass
+    # for numb in receiver_list:
+    #   daily_reminder(numb, 'teste')
+
+
+@scheduler.scheduled_job('cron', hour=1)
+def scheduled_job():
     for numb in receiver_list:
         daily_reminder(numb, 'teste')
 
