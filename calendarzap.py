@@ -2,14 +2,10 @@ from flask import Flask, request
 from twilio.twiml import messaging_response
 import boto3
 import os
-import requests
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
-import time
-import threading
-import sys
 import datetime
-# Twilio credentials and service SID
+
 account_sid = os.environ['twilio_account_sid']
 auth_token = os.environ['twilio_auth_token']
 client = Client(account_sid, auth_token)
