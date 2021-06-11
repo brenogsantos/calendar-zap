@@ -74,7 +74,10 @@ def separate_datas():
     with open("log.txt", "r") as f:
         lines = f.readlines()
         for line in lines:
-            dates.append(line.strip("\n"))
+            if(line.strip("\n") == '.'):
+                pass
+            else:
+                dates.append(line.strip("\n"))
 
     dates.sort(key=lambda x: datetime.datetime.strptime(
         x.rsplit(None, 2)[0], '%d/%m'))
