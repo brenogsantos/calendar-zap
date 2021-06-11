@@ -74,7 +74,7 @@ def separate_datas():
         for line in lines:
             dates.append(line.strip("\n"))
 
-   # dates.sort(key=date_key)
+    dates.sort(key=date_key)
    # word = '\n'.join([str(item) for item in dates])
     # write_file(word)
     f.close()
