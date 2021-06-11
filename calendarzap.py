@@ -17,9 +17,7 @@ s3 = boto3.resource(
     aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
     aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY']
 )
-#
-#
-#
+
 app = Flask(__name__)
 
 
@@ -30,14 +28,14 @@ def daily_reminder(receiver, message):
         to=receiver
     )
     return message
-# daily_reminder()
+
 
 
 def ler_file_aws():
     # s3.Bucket('calendar-zap').upload_file(Filename='LOG.txt', Key='log.txt')
     # s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
     # f = open("LOG.txt", "w")
-    # f.write("brenoaDASDADSAsASasASAsASasAS\n")
+    # f.write("teste\n")
     # f.close()
     # s3.Bucket('calendar-zap').upload_file(Filename='LOG.txt', Key='log.txt')
     return "recebeu"
@@ -54,8 +52,6 @@ def check_alrdy_saved(data):
     f.close()
     # s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
     return 0
-
-#
 
 
 def separate_datas():
@@ -82,7 +78,6 @@ def separate_datas():
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
-# s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
 def write_file(data):
@@ -103,6 +98,15 @@ def show_datas():
             word += line
     return word
 
+def show_commands():
+    word = ''
+    s3.Bucket('calendar-zap').download_file(Key='commands.txt', Filename='commands.txt')
+    with open('commands.txt') as f:
+        line = f.readline()
+        while line:
+            line = f.readline()
+            word += line
+    return word
 
 def del_data(word):
     delet = 0
@@ -166,6 +170,10 @@ def bot():
             quote = '_Nenhuma data foi salva_'
             msg.body(quote)
             responded = True
+        msg.body(word)
+        responded = True
+    elif 'help' in incoming_msg or 'ajuda' in incoming_msg:
+        word = show_commands()
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
