@@ -113,6 +113,7 @@ def show_datas():
 
 
 def del_data(word):
+    delet = 0
     s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
     with open("log.txt", "r") as f:
         lines = f.readlines()
@@ -120,8 +121,11 @@ def del_data(word):
             for line in lines:
                 if line.strip("\n") != word:
                     f.write(line)
+                else:
+                    delet = 1
     f.close()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+    return delet
 
 
 def del_all():
@@ -138,7 +142,7 @@ def bot():
     msg = resp.message()
     responded = False
     if(incoming_msg.count(" ") > 2):
-        quote = 'Insira no máx. até 2 argumentos + "."'
+        quote = '_Insira no máx. até 2 argumentos + "."_'
         msg.body(quote)
         responded = True
         return str(resp)
@@ -149,49 +153,50 @@ def bot():
                 incoming_msg[incoming_msg.find('/')+3:incoming_msg.find('.')]
             responded = True
             if(check_alrdy_saved(data)):
-                quote = 'data já foi gravada'
+                quote = '_data já foi gravada_'
                 msg.body(quote)
                 responded = True
             else:
                 palavra = data + "\n"
                 write_file(palavra)
                 separate_datas()
-                quote = 'salvo!'
+                quote = '*salvo!*'
                 msg.body(quote)
                 responded = True
         else:
-            quote = 'formato inválido'
+            quote = '*formato inválido*'
             msg.body(quote)
             responded = True
 
     elif 'datas' in incoming_msg or 'show' in incoming_msg:
         word = show_datas()
         if word == 1:
-            quote = 'Nenhuma data foi salva'
+            quote = '_Nenhuma data foi salva_'
             msg.body(quote)
             responded = True
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2)
-                             :(incoming_msg.find('.'))]
-        del_data(word)
-        quote = 'deletado'
-        msg.body(quote)
-        responded = True
+        word = incoming_msg[(incoming_msg.find('l')+2)                            :(incoming_msg.find('.'))]
+        delet = del_data(word)
+        if delet == 1:
+            quote = '*deletado!*'
+            msg.body(quote)
+            responded = True
+        else:
+            quote = '_data não encontrada_'
+            msg.body(quote)
+            responded = True
     elif 'exc tudo' in incoming_msg:
         del_all()
-        quote = 'datas deletadas'
+        quote = '*datas deletadas*'
         msg.body(quote)
         responded = True
-    elif 'bolsonaro ou lula' in incoming_msg:
-        quote = 'lula'
-        msg.body(quote)
-        responded = True
+
     # if 'datas' in incoming_msg:
         # word = read_file()
     if not responded:
-        msg.body('comando inválido, digite: help')
+        msg.body('_comando inválido, digite: help_')
     return str(resp)
 
 
