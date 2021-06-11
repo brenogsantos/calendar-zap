@@ -144,7 +144,7 @@ def bot():
         return str(resp)
     if 'salvar' in incoming_msg or 'save' in incoming_msg:
         ler_file_aws()
-        if(incoming_msg.find('/') > 1):
+        if(incoming_msg.find('/') == 9):
             data = incoming_msg[(incoming_msg.find('/'))-2:incoming_msg.find('/')+3] + \
                 incoming_msg[incoming_msg.find('/')+3:incoming_msg.find('.')]
             responded = True
