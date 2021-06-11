@@ -79,7 +79,7 @@ def separate_datas():
   #  dates.sort(key=lambda x: datetime.datetime.strptime(
    #     x.rsplit(None, 2)[0], '%m/%y'))
     #word = '\n'.join([str(item) for item in dates])
-
+    dates.sort(reverse=True)
     # write_file(word)
     f.close()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
