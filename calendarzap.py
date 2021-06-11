@@ -84,7 +84,7 @@ def separate_datas():
     word = '\n'.join([str(item) for item in dates])
     f.close()
     f = open("log.txt", "w")
-    f.write('.\n' + word)
+    f.write('.\n' + word + '\n')
     f.close()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
@@ -147,8 +147,8 @@ def bot():
                 msg.body(quote)
                 responded = True
             else:
-                word = data + "\n"
-                write_file(word)
+                palavra = data + "\n"
+                write_file(palavra)
                 separate_datas()
                 quote = 'salvo!'
                 msg.body(quote)
