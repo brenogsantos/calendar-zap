@@ -8,6 +8,7 @@ from twilio.rest import Client
 import time
 import threading
 import sys
+import datetime
 # Twilio credentials and service SID
 account_sid = os.environ['twilio_account_sid']
 auth_token = os.environ['twilio_auth_token']
@@ -36,12 +37,12 @@ def daily_reminder(receiver, message):
 
 
 def ler_file_aws():
-    #s3.Bucket('calendar-zap').upload_file(Filename='LOG.txt', Key='log.txt')
-    #s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
-    #f = open("LOG.txt", "w")
+    # s3.Bucket('calendar-zap').upload_file(Filename='LOG.txt', Key='log.txt')
+    # s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
+    # f = open("LOG.txt", "w")
     # f.write("brenoaDASDADSAsASasASAsASasAS\n")
     # f.close()
-    #s3.Bucket('calendar-zap').upload_file(Filename='LOG.txt', Key='log.txt')
+    # s3.Bucket('calendar-zap').upload_file(Filename='LOG.txt', Key='log.txt')
     return "recebeu"
 
 
@@ -54,7 +55,7 @@ def check_alrdy_saved(data):
                 f.close()
                 return 1
     f.close()
-    #s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+    # s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
     return 0
 
 #
@@ -75,9 +76,8 @@ def separate_datas():
         for line in lines:
             dates.append(line.strip("\n"))
 
-    dates.sort(key=date_key)
-    print(dates)
-    sys.stdout.flush()
+    dates.sort(key=lambda x: datetime.datetime.strptime(
+        x.rsplit(None, 2)[0], '%m/%y'))
     #word = '\n'.join([str(item) for item in dates])
 
     # write_file(word)
@@ -85,7 +85,7 @@ def separate_datas():
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
-#s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+# s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
 def write_file(data):
@@ -126,7 +126,7 @@ def del_all():
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
-@app.route('/bot', methods=['POST'])
+@ app.route('/bot', methods=['POST'])
 def bot():
     incoming_msg = request.values.get('Body', '').lower()
     resp = MessagingResponse()
@@ -179,7 +179,7 @@ def bot():
         msg.body(quote)
         responded = True
     # if 'datas' in incoming_msg:
-        #word = read_file()
+        # word = read_file()
     if not responded:
         msg.body('comando inválido, digite: help')
     return str(resp)
