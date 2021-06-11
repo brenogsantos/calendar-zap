@@ -141,7 +141,7 @@ def bot():
     resp = MessagingResponse()
     msg = resp.message()
     responded = False
-    if(incoming_msg.count(" ") > 2):
+    if(incoming_msg.count(" ") > 3):
         quote = '_Insira no máx. até 2 argumentos + "."_'
         msg.body(quote)
         responded = True
