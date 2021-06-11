@@ -81,7 +81,7 @@ def separate_datas():
 
     dates.sort(key=lambda x: datetime.datetime.strptime(
         x.rsplit(None, 2)[0], '%d/%m'))
-    word = '\n'.join([str(item) for item in dates])
+    word = '.\n' + '\n'.join([str(item) for item in dates])
     # dates.sort(reverse=True)
     f.close()
     f = open("log.txt", "w")
