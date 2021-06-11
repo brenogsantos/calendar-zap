@@ -76,10 +76,10 @@ def separate_datas():
         for line in lines:
             dates.append(line.strip("\n"))
 
-  #  dates.sort(key=lambda x: datetime.datetime.strptime(
-   #     x.rsplit(None, 2)[0], '%m/%y'))
+    dates.sort(key=lambda x: datetime.datetime.strptime(
+        x.rsplit(None, 2)[0], '%d/%m'))
     #word = '\n'.join([str(item) for item in dates])
-    dates.sort(reverse=True)
+    # dates.sort(reverse=True)
     # write_file(word)
     f.close()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
@@ -163,8 +163,7 @@ def bot():
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2)
-                             :(incoming_msg.find('.'))]
+        word = incoming_msg[(incoming_msg.find('l')+2)                            :(incoming_msg.find('.'))]
         del_data(word)
         quote = 'deletado'
         msg.body(quote)
