@@ -76,8 +76,8 @@ def separate_datas():
         for line in lines:
             dates.append(line.strip("\n"))
 
-    dates.sort(key=lambda x: datetime.datetime.strptime(
-        x.rsplit(None, 2)[0], '%m/%y'))
+  #  dates.sort(key=lambda x: datetime.datetime.strptime(
+   #     x.rsplit(None, 2)[0], '%m/%y'))
     #word = '\n'.join([str(item) for item in dates])
 
     # write_file(word)
