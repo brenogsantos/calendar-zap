@@ -7,6 +7,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
 import time
 import threading
+import sys
 # Twilio credentials and service SID
 account_sid = os.environ['twilio_account_sid']
 auth_token = os.environ['twilio_auth_token']
@@ -75,7 +76,10 @@ def separate_datas():
             dates.append(line.strip("\n"))
 
     dates.sort(key=date_key)
-   # word = '\n'.join([str(item) for item in dates])
+    print(dates)
+    sys.stdout.flush()
+    #word = '\n'.join([str(item) for item in dates])
+
     # write_file(word)
     f.close()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
@@ -159,7 +163,8 @@ def bot():
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2):(incoming_msg.find('.'))]
+        word = incoming_msg[(incoming_msg.find('l')+2)
+                             :(incoming_msg.find('.'))]
         del_data(word)
         quote = 'deletado'
         msg.body(quote)
@@ -183,5 +188,5 @@ def bot():
 #
 if __name__ == '__main__':
     # daily_reminder()
-    #app.debug = True
+    app.config['DEBUG'] = True
     app.run()
