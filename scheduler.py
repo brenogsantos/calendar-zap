@@ -15,7 +15,7 @@ scheduler = BlockingScheduler()
 
 #scheduler.add_job(the_funct, 'cron', minutes=2)
 
-@scheduler.scheduled_job('interval', minutes=2)
+@scheduler.scheduled_job('interval', minutes=20)
 def timed_job():
     for numb in receiver_list:
         daily_reminder(numb, 'teste')
