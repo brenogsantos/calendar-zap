@@ -66,7 +66,7 @@ def date_key(s):
 
 def separate_datas():
 
-    #s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
+    s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
     dates = []
     i = 0
     with open("log.txt", "r") as f:
@@ -76,7 +76,7 @@ def separate_datas():
 
     dates.sort(key=date_key)
     word = '\n'.join([str(item) for item in dates])
-    write_file(word)
+    # write_file(word)
     f.close()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
@@ -89,7 +89,7 @@ def write_file(data):
     f.write(data)
     f.close()
     # separate_datas()
-    #s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+    s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
 def show_datas():
@@ -141,6 +141,7 @@ def bot():
             else:
                 word = data + "\n"
                 write_file(word)
+                time.sleep(3)
                 separate_datas()
                 quote = 'salvo!'
                 msg.body(quote)
