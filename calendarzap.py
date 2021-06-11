@@ -59,19 +59,28 @@ def check_alrdy_saved(data):
 #
 
 
-# def separate_datas():
-
-    #s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
-dates = ['25/06 science test', '20/07 math test']
-
-
 def date_key(s):
     day, month = s.split()[0].split('/')
     return int(month), int(day)
 
 
-dates.sort(key=date_key)
-print(dates)
+def separate_datas():
+
+    #s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
+    dates = []
+    i = 0
+    with open("log.txt", "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            dates.append(line.strip("\n"))
+
+    dates.sort(key=date_key)
+    word = '\n'.join([str(item) for item in dates])
+    write_file(word)
+    f.close()
+    s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+
+
 #s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
@@ -80,7 +89,7 @@ def write_file(data):
     f.write(data)
     f.close()
     # separate_datas()
-    s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+    #s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
 def show_datas():
@@ -132,6 +141,7 @@ def bot():
             else:
                 word = data + "\n"
                 write_file(word)
+                separate_datas()
                 quote = 'salvo!'
                 msg.body(quote)
                 responded = True
@@ -149,8 +159,7 @@ def bot():
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2)
-                             :(incoming_msg.find('.'))]
+        word = incoming_msg[(incoming_msg.find('l')+2):(incoming_msg.find('.'))]
         del_data(word)
         quote = 'deletado'
         msg.body(quote)
