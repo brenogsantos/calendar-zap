@@ -61,11 +61,6 @@ def check_alrdy_saved(data):
 #
 
 
-def date_key(s):
-    day, month = s.split()[0].split('/')
-    return int(month), int(day)
-
-
 def separate_datas():
 
     s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
@@ -177,7 +172,7 @@ def bot():
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2)                            :(incoming_msg.find('.'))]
+        word = incoming_msg[(incoming_msg.find('l')+2):(incoming_msg.find('.'))]
         delet = del_data(word)
         if delet == 1:
             quote = '*deletado!*'
