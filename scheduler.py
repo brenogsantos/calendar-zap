@@ -23,13 +23,13 @@ def timed_job():
 
 
 @scheduler.scheduled_job('cron', hour=1)
-def scheduled_job():
+def scheduled_job1():
     for numb in receiver_list:
         daily_reminder(numb, 'teste')
 
 
-@scheduler.scheduled_job('cron', hour=11)
-def scheduled_job():
+@scheduler.scheduled_job('cron', hour=15)
+def scheduled_job2():
     for numb in receiver_list:
         daily_reminder(numb, 'teste')
 
