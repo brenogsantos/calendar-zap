@@ -27,7 +27,7 @@ app = Flask(__name__)
 def daily_reminder(receiver, message):
     message = client.messages.create(
         from_='whatsapp:+14155238886',
-        body='lembrete diario' + '\n' + show_datas(),
+        body='LEMBRETE DIARIO' + '\n\n' + show_datas(),
         to=receiver
     )
     return message
@@ -59,34 +59,20 @@ def check_alrdy_saved(data):
 #
 
 
-def separate_datas():
-    datas = []
-    num = []
-    i = 0
-    s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
-    with open("log.txt", "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            print(line[line.find("/")+1:line.find("/")+3])
-            datas.append(line)
-        for data in datas:
+# def separate_datas():
 
-            num[i] = int(data[data.find("/")+1:data.find("/")+3])
-            if len(num) > 0:
-                j = i
-                while num[j] < num[j-1] and j > 0:
-                    menor = datas[j]
-                    datas[j] = datas[j-1]
-                    datas[j-1] = menor
-                    j = j - 1
+    #s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
+dates = ['25/06 science test', '20/07 math test']
 
-            i = i + 1
-            # if(j > 1):
-            #   while int(datas[datas[j].find("/")+1:datas[j].find("/")+3]) <
-            #i = i + 1
-            #datas = organize(datas)
-    f.close()
-    s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
+
+def date_key(s):
+    day, month = s.split()[0].split('/')
+    return int(month), int(day)
+
+
+dates.sort(key=date_key)
+print(dates)
+#s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
 
 def write_file(data):
@@ -163,7 +149,8 @@ def bot():
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2):(incoming_msg.find('.'))]
+        word = incoming_msg[(incoming_msg.find('l')+2)
+                             :(incoming_msg.find('.'))]
         del_data(word)
         quote = 'deletado'
         msg.body(quote)
