@@ -137,6 +137,11 @@ def bot():
     resp = MessagingResponse()
     msg = resp.message()
     responded = False
+    if(incoming_msg.count(" ") > 2):
+        quote = 'Insira no máx. até 2 argumentos + "."'
+        msg.body(quote)
+        responded = True
+        return str(resp)
     if 'salvar' in incoming_msg or 'save' in incoming_msg:
         ler_file_aws()
         if(incoming_msg.find('/') > 1):
@@ -168,7 +173,8 @@ def bot():
         msg.body(word)
         responded = True
     elif 'del' in incoming_msg:
-        word = incoming_msg[(incoming_msg.find('l')+2)                            :(incoming_msg.find('.'))]
+        word = incoming_msg[(incoming_msg.find('l')+2)
+                             :(incoming_msg.find('.'))]
         del_data(word)
         quote = 'deletado'
         msg.body(quote)
