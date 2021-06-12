@@ -5,6 +5,7 @@ import os
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
 import datetime
+import filecmp
 
 account_sid = os.environ['twilio_account_sid']
 auth_token = os.environ['twilio_auth_token']
@@ -28,6 +29,21 @@ def daily_reminder(receiver, message):
         to=receiver
     )
     return message
+
+def check_udpates(receiver, message):
+    s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
+    s3.Bucket('calendar-zap').download_file(Key='log2.txt', Filename='log2.txt')
+    if(filecmp.cmp('log.txt', 'log2.txt')):
+
+        message = client.messages.create(
+            from_=os.environ['sender'],
+            body='_Alguém adicionou uma nova data!_',
+            to=receiver
+        )
+        return message      
+
+    pass
+    
 
 
 
