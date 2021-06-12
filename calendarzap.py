@@ -41,7 +41,7 @@ def check_udpates(receiver, message):
         s3.Bucket('calendar-zap').upload_file(Filename='log2.txt', Key='log2.txt')
         message = client.messages.create(
             from_=os.environ['sender'],
-            body='_Alguém adicionou uma nova data!_',
+            body='_Uma nova data foi adicionada!_',
             to=receiver
         )
         return message
