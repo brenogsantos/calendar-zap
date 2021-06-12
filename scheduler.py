@@ -6,7 +6,7 @@ receiver_list = [os.environ['adm'], os.environ['User3'],
 
 scheduler = BlockingScheduler()
 
-@scheduler.scheduled_job('interval', minutes=2)
+@scheduler.scheduled_job('interval', minutes=30)
 def timed_job():
     for numb in receiver_list:
         check_udpates(numb, 'teste')
