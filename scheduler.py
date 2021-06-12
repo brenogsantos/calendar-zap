@@ -1,8 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from calendarzap import *
 
-receiver_list = [os.environ['adm'], os.environ['User1'],
-                 os.environ['User2'], os.environ['User3']]
+receiver_list = [os.environ['adm'], os.environ['User3'],
+                 os.environ['User2'], os.environ['User1']]
 
 scheduler = BlockingScheduler()
 
