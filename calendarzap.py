@@ -102,14 +102,7 @@ def write_file(data):
     f = open("log.txt", "a")
     f.write(data)
     f.close()
-    s3.Bucket('calendar-zap').download_file(Key='log2.txt', Filename='log2.txt')
-    if(not filecmp.cmp('log.txt', 'log2.txt')):
-        with open('log.txt','r') as firstfile, open('log2.txt','w') as secondfile:
-            for line in firstfile:
-             secondfile.write(line)
-        s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
-        s3.Bucket('calendar-zap').upload_file(Filename='log2.txt', Key='log2.txt')
-        return 0
+
     # separate_datas()
     s3.Bucket('calendar-zap').upload_file(Filename='log.txt', Key='log.txt')
 
