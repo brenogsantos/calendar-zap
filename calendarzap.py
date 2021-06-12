@@ -33,14 +33,18 @@ def daily_reminder(receiver, message):
 def check_udpates(receiver, message):
     s3.Bucket('calendar-zap').download_file(Key='log.txt', Filename='log.txt')
     s3.Bucket('calendar-zap').download_file(Key='log2.txt', Filename='log2.txt')
-    if(filecmp.cmp('log.txt', 'log2.txt')):
+    if(not filecmp.cmp('log.txt', 'log2.txt')):
+        with open('log.txt','r') as firstfile, open('log2.txt','w') as secondfile:
+            for line in firstfile:
+             secondfile.write(line)
 
         message = client.messages.create(
             from_=os.environ['sender'],
             body='_Alguém adicionou uma nova data!_',
             to=receiver
         )
-        return message      
+        return message
+          
 
     pass
     
