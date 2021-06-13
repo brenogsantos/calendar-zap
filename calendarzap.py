@@ -215,7 +215,7 @@ def bot():
     # if 'datas' in incoming_msg:
         # word = read_file()
     if not responded:
-        msg.body('_comando inválido, digite: help_')
+        msg.body('_comando inválido, digite: /help_')
     return str(resp)
 
 
