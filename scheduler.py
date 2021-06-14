@@ -13,7 +13,7 @@ def timed_job():
  
 
 
-@scheduler.scheduled_job('cron', hour=16)
+@scheduler.scheduled_job('cron', hour=1)
 def scheduled_job2():
     for numb in receiver_list:
         daily_reminder(numb, 'teste')
