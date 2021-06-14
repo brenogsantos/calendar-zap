@@ -211,11 +211,6 @@ def bot():
         quote = '*datas deletadas*'
         msg.body(quote)
         responded = True
-    elif 'coco' in incoming_msg:
-        #del_all()
-        quote = 'giló'
-        msg.body(quote)
-        responded = True
     # if 'datas' in incoming_msg:
         # word = read_file()
     if not responded:
