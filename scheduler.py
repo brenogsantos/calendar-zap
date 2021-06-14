@@ -12,7 +12,7 @@ scheduler = BlockingScheduler()
   #      check_udpates(numb, 'teste')
  
 
-@scheduler.scheduled_job('cron', hour=3)
+@scheduler.scheduled_job('cron', hour=12)
 def scheduled_job2():
     for numb in receiver_list:
         daily_reminder(numb, 'teste')
