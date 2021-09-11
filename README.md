@@ -8,10 +8,11 @@ work in progress...
 
 ## How it works
 
-![](img/calendarzap.gif)
+<img src="img/calendarzap.gif" width="250" height="600"/>
 
 - When sharing the bot, there is one more feature where the bot notifies you at the end of the day if someone has added or deleted a date.
-![image](https://user-images.githubusercontent.com/61205851/132929014-221ab593-9df5-4716-9d49-dee5767479f2.png)
+<img src="https://user-images.githubusercontent.com/61205851/132929014-221ab593-9df5-4716-9d49-dee5767479f2.png" width="400" height="250"/>
+
 
 ## Commands
 ```
