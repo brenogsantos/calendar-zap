@@ -1,5 +1,5 @@
 # calendar-zap --> Python + AWS S3 + Twilio (Whatsapp) + Heroku
-
+work in progress...
 ## What is it?
 - This whatsapp bot aims to facilitate the sharing of important dates on the Whatsapp platform, so that multiple people can manage the saved dates at the same time (or individually)
 - The dates are saved in the AWS database (S3)
